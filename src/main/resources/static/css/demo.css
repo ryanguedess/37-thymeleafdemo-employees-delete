@@ -1,0 +1,36 @@
+
+body{
+    background-color: #f2f2f2;
+}
+
+table{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border:2px black solid;
+}
+
+td,th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #b5d2ec;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #d9d9d9;
+  color: black;
+}
+
+tr:nth-of-type(even) {
+  background-color:#ffffff;
+}
+
+tr:nth-of-type(odd) {
+  background-color:#f2f2f2;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+    <script type="text/javascript" th:src="@{/js/header.js}"></script>
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <title>Clientes</title>
+
+</head>
+<body style="background-color:#f2f2f2;">
+
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container">
+
+    <br>
+    <h3>Lista de Clientes</h3>
+    <!-- Add a button   -->
+    <br>
+    <a th:href="@{/clientes/showFormForAdd}"
+       class="btn btn-primary btn-sm mb-3" style="float: right;">
+        Adicionar Cliente
+    </a>
+
+    <form action="#" th:action="@{/clientes/search}"  th:object="${cliente}" method="GET" id="nameform">
+        <input type="text" name="theSearchName" />
+        <input type="submit" value="Pesquisar" class="add-button" />
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Razão Social</th>
+            <th>Nome Fantasia</th>
+            <th>Cnpj</th>
+            <th>Email</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempCliente : ${clientes}">
+
+            <td th:text="${tempCliente.razaoSocial}" />
+            <td th:text="${tempCliente.nomeFantasia}" />
+            <td th:text="${tempCliente.email}" />
+            <td th:text="${tempCliente.cnpj}" />
+
+            <td>
+                <div class="row">
+
+                    <div class="col-small">
+                        <!-- Add "update" button/link -->
+                        <form action="#" th:action="@{/clientes/showFormForUpdate}" method="POST">
+
+                            <input type="hidden" name="clienteId" th:value="${tempCliente.id}" />
+                            <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Modificar</button>
+
+                        </form>
+                    </div>
+
+                    <div class="col-small">
+                        <!-- Add "delete" button/link -->
+                        <form action="#" th:action="@{/clientes/delete}" method="POST">
+
+                            <input type="hidden" name="clienteId" th:value="${tempCliente.id}" />
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+                                Deletar
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

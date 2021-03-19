@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+
+    <title>Produtos</title>
+
+</head>
+
+<body style="background-color:#f2f2f2;">
+
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container">
+
+    <br>
+    <h3>Produtos</h3>
+    <br>
+
+    <a th:href="@{/produtos/showFormForAdd}"
+       class="btn btn-primary btn-sm mb-3">
+        Adicionar Produto
+    </a>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Logo</th>
+            <th>Imagem</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempProduto : ${produtos}">
+
+            <td/><img th:src="@{${tempProduto.imagePath}}" width="50" height="50"></td>
+            <td><span th:text="${tempProduto.nome}" ></span><td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+
+</html>
