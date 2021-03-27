@@ -26,11 +26,12 @@ public class ProdutoController {
     }
 
     @GetMapping("/list")
-    public String listProdutos(Model theModel){
+    public String listProdutos(
+            @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+            @RequestParam(value = "size", required = false, defaultValue = "6") int size,
+            Model model){
 
-        List<Produto> produtos = produtoService.findAll();
-
-        theModel.addAttribute("produtos",produtos);
+        model.addAttribute("produtos",produtoService.findAll(pageNumber,size));
 
         return "produtos/list-produtos";
     }

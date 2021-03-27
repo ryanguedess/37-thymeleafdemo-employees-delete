@@ -1,5 +1,10 @@
 package com.luv2code.springboot.thymeleafdemo.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +28,9 @@ public class Cliente {
     @Column(name="email")
     private String email;
 
+    @Column(name="cep")
+    private String cep;
+
     @Column(name="rua")
     private String rua;
 
@@ -35,8 +43,7 @@ public class Cliente {
     @Column(name="complemento")
     private String complemento;
 
-
-    public Cliente() {}
+    public Cliente(){}
 
     public Cliente(int id, String razaoSocial, String nomeFantasia, String cnpj, String email, String rua, String numero, String bairro, String complemento) {
         this.id = id;
@@ -50,7 +57,7 @@ public class Cliente {
         this.complemento = complemento;
     }
 
-    public Cliente(String razaoSocial, String nomeFantasia, String cnpj, String email, String rua, String numero, String bairro, String complemento) {
+    public Cliente(String razaoSocial, String nomeFantasia, String cnpj, String email, String cep, String rua, String numero, String bairro, String complemento) {
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;

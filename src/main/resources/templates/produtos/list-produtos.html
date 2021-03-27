@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Produtos</title>
 
@@ -16,41 +18,73 @@
 
 <body style="background-color:#f2f2f2;">
 
-<div th:insert="fragments/header :: header"></div>
+<div th:insert="fragments/header :: header(currentPage='produtos')"></div>
 
 <div class="container">
-
-    <br>
-    <h3>Produtos</h3>
-    <br>
 
     <a th:href="@{/produtos/showFormForAdd}"
        class="btn btn-primary btn-sm mb-3">
         Adicionar Produto
     </a>
 
+    <form action="#" th:action="@{/clientes/search}"  th:object="${produto}" method="GET" id="nameform">
 
-    <table>
-        <thead>
-        <tr>
-            <th>Logo</th>
-            <th>Imagem</th>
-            <th>Ação</th>
-        </tr>
-        </thead>
+        <div class="row">
+            <input type="hidden" name="pageNumber" th:value="${produtos.paging.pageNumber}" />
+            <input type="hidden" name="pageSize" th:value="${produtos.paging.pageSize}" />
+            <input class="form-control form-control-lg" type="text" name="keyword" />
+            <label for="submitButton" class="btn" style="border: none;margin-top: -45px;margin-left:95%"><i class="fa fa-search fa-2x"></i></label>
+            <input id="submitButton" type="submit" class="hidden" style="visibility: hidden;" />
 
-        <tbody>
-        <tr th:each="tempProduto : ${produtos}">
+        </div>
+    </form>
 
-            <td/><img th:src="@{${tempProduto.imagePath}}" width="50" height="50"></td>
-            <td><span th:text="${tempProduto.nome}" ></span><td>
+    <div class="row">
+        <div th:each="produto, stat: ${produtos.page.content}" class="col-sm-3" style="margin: 45px;box-shadow: 0 0px 8px 0 rgba(0,0,0,0.2);">
 
-
-        </tr>
-        </tbody>
-    </table>
-
+            <img class="card-img-top" th:src="@{${produto.imagePath}}" height="250">
+<!--                 style="box-shadow: 0 0px 8px 0 rgba(0,0,0,0.2);">-->
+            <div class="card-body" >
+<!--                 style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">-->
+                <h5 class="card-text" th:text="${produto.nome}">Produto</h5>
+                <h4 class="card-title"th:text="'R$ '+ ${produto.preco}" >preco</h4>
+                <button type="button" class="btn btn-primary btn-lg btn-block">Comprar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+
+            <nav aria-label="Page navigation" class="paging">
+                <ul class="pagination" th:if="${produtos.page.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!produtos.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'list?pageNumber=' + ${produtos.paging.pageNumber - 1}}"
+                           tabindex="-1">Anterior</a>
+                    </li>
+                    <th:block th:each="item : ${produtos.paging.getItems()}">
+                        <li class="page-item" th:classappend="${item.index == produtos.paging.pageNumber? 'active' : ''}"
+                            th:if="${item.pageItemType.name() == 'PAGE'}">
+                            <a class="page-link" th:href="@{'list?pageNumber=' + ${item.index}}"
+                               th:text="${item.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+
+                    <li class="page-item" th:classappend="${!produtos.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'list?pageNumber=' + ${produtos.paging.pageNumber + 1}}">Próximo</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>

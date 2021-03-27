@@ -13,16 +13,25 @@
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!--    <style>-->
+<!--    .currentPage {-->
+<!--       font-size: 30px;-->
+<!--      font-weight: bold;-->
+<!--      background: -webkit-linear-gradient(white, red, black);-->
+<!--      -webkit-background-clip: text;-->
+<!--      -webkit-text-fill-color: transparent;-->
+<!--    }-->
+<!--    </style>-->
 
     <title>Clientes</title>
 
 </head>
 <body style="background-color:#f2f2f2;">
 
-<div th:insert="fragments/header :: header"></div>
+<div th:insert="fragments/header :: header(currentPage='clientes')"></div>
 
 <div class="container">
-
+    <a class="currentPage">TEXTO</a>
     <br>
     <h3>Lista de Clientes</h3>
     <!-- Add a button   -->
@@ -33,12 +42,28 @@
     </a>
 
     <form action="#" th:action="@{/clientes/search}"  th:object="${cliente}" method="GET" id="nameform">
-        <input type="text" name="theSearchName" />
-        <input type="submit" value="Pesquisar" class="add-button" />
+
+       <div class="row" style="width: 60%;">
+           <input type="hidden" name="pageNumber" th:value="${clientes.paging.pageNumber}" />
+           <input type="hidden" name="pageSize" th:value="${clientes.paging.pageSize}" />
+
+           <div class="col-12">
+               <select name="filter" id="filer" style="height:100%;">
+                   <option value="1">Código</option>
+                   <option value="2">Razão Social</option>
+                   <option value="3">Nome Fantasia</option>
+               </select>
+               <input type="text" name="keyword" style="width:50%;" />
+               <input type="submit" value="Pesquisar" class="add-button" />
+           </div>
+       </div>
     </form>
+
+
     <table>
         <thead>
         <tr>
+            <th>Código</th>
             <th>Razão Social</th>
             <th>Nome Fantasia</th>
             <th>Cnpj</th>
@@ -48,8 +73,9 @@
         </thead>
 
         <tbody>
-        <tr th:each="tempCliente : ${clientes}">
+        <tr th:each="tempCliente : ${clientes.page.content}">
 
+            <td th:text="${tempCliente.id}" />
             <td th:text="${tempCliente.razaoSocial}" />
             <td th:text="${tempCliente.nomeFantasia}" />
             <td th:text="${tempCliente.email}" />
@@ -88,7 +114,42 @@
         </tbody>
     </table>
 
+
 </div>
+
+<div class="container"6>
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+
+
+            <nav aria-label="Page navigation" class="paging">
+                <ul class="pagination" th:if="${clientes.page.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!clientes.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'list?pageNumber=' + ${clientes.paging.pageNumber - 1}}"
+                           tabindex="-1">Anterior</a>
+                    </li>
+                    <th:block th:each="item : ${clientes.paging.getItems()}">
+                        <li class="page-item" th:classappend="${item.index == clientes.paging.pageNumber? 'active' : ''}"
+                            th:if="${item.pageItemType.name() == 'PAGE'}">
+                            <a class="page-link" th:href="@{'list?pageNumber=' + ${item.index}}"
+                               th:text="${item.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+
+                    <li class="page-item" th:classappend="${!clientes.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'list?pageNumber=' + ${clientes.paging.pageNumber + 1}}">Próximo</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
 
 </body>
 </html>

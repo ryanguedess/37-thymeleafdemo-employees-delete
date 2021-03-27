@@ -17,18 +17,23 @@ public class Produto {
     @Column(name="imagem")
     private String imagem;
 
+    @Column(name="preco")
+    private Double preco;
+
     public Produto() {
     }
 
-    public Produto(int id, String produto, String imagem) {
+    public Produto(int id, String nome, String imagem, Double preco) {
         this.id = id;
-        this.nome = produto;
+        this.nome = nome;
         this.imagem = imagem;
+        this.preco = preco;
     }
 
-    public Produto(String produto, String imagem) {
-        this.nome = produto;
+    public Produto(String nome, String imagem, Double preco) {
+        this.nome = nome;
         this.imagem = imagem;
+        this.preco = preco;
     }
 
     public int getId() {
@@ -60,5 +65,13 @@ public class Produto {
         if(imagem == null) return null;
 
         return "/fotos-produtos/" + id + "/" + imagem;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 }

@@ -1,4 +1,4 @@
-package com.luv2code.springboot.thymeleafdemo;
+package com.luv2code.springboot.thymeleafdemo.config;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

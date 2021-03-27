@@ -63,7 +63,12 @@
 			</div>
 
 			<div class="form-row">
-				<div class="form-group col-md-11">
+				<div class="form-group col-md-3">
+					<label for="CEP">CEP</label>
+					<input type="text" th:field="*{CEP}" id="CEP"
+						   class="form-control" placeholder="CEP">
+				</div>
+				<div class="form-group col-md-8">
 					<label for="Rua">Rua</label>
 					<input type="text" th:field="*{rua}" id="rua"
 						   class="form-control" placeholder="Rua">
@@ -88,11 +93,19 @@
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-info">Salvar</button>
+			<div class="row">
+				<div class="col">
+					<a th:href="@{/clientes/list}"
+					   class="btn btn-danger  btn-lg" style="float: right;width: 30%">
+						Cancelar
+					</a>
+				</div>
+					<div class="col">
+					<button type="submit" class="btn btn-success  btn-lg" style="width: 30%"> Salvar </button>
+				</div>
+			</div>
+
 		</form>
-	
-		<hr>
-		<a th:href="@{/clientes/list}">voltar para lista de clientes</a>
 		
 	</div>
 </body>

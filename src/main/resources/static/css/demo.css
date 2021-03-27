@@ -34,3 +34,16 @@ tr:nth-of-type(even) {
 tr:nth-of-type(odd) {
   background-color:#f2f2f2;
 }
+
+
+.currentPage {
+ font-weight: bold;
+ background: -webkit-linear-gradient(white, red, black);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+}
+
+.notCurrentPage {
+ color: red;
+}
+

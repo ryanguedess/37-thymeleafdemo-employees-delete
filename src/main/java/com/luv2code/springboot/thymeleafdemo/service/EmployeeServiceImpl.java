@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.luv2code.springboot.thymeleafdemo.entity.Produto;
+import com.luv2code.springboot.thymeleafdemo.paging.Paged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,11 @@ public class EmployeeServiceImpl implements Servicer<Employee> {
 	@Override
 	public List<Employee> findAll() {
 		return employeeRepository.findAllByOrderByLastNameAsc();
+	}
+
+	@Override
+	public Paged<Employee> findAll(int pageNumber, int size) {
+		return null;
 	}
 
 	@Override
@@ -54,9 +60,10 @@ public class EmployeeServiceImpl implements Servicer<Employee> {
 	}
 
 	@Override
-	public List<Employee> search(String theSearchName) {
+	public Paged<Employee> search(int pageNumber, int size, String keyword) {
 		return null;
 	}
+
 
 }
 

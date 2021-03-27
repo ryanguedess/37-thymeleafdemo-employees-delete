@@ -3,6 +3,7 @@ package com.luv2code.springboot.thymeleafdemo.service;
 import com.luv2code.springboot.thymeleafdemo.dao.FornecedorRepository;
 import com.luv2code.springboot.thymeleafdemo.entity.Fornecedor;
 import com.luv2code.springboot.thymeleafdemo.entity.Produto;
+import com.luv2code.springboot.thymeleafdemo.paging.Paged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,11 @@ public class FornecedorServiceImpl implements Servicer<Fornecedor> {
 
     @Override
     public List<Fornecedor> findAll(){return fornecedorRepository.findAllByOrderByRazaoSocialAsc();}
+
+    @Override
+    public Paged<Fornecedor> findAll(int pageNumber, int size) {
+        return null;
+    }
 
     @Override
     public Fornecedor findById(int id){
@@ -45,7 +51,9 @@ public class FornecedorServiceImpl implements Servicer<Fornecedor> {
     public void deleteById(int id){fornecedorRepository.deleteById(id);}
 
     @Override
-    public List<Fornecedor> search(String theSearchName) {
+    public Paged<Fornecedor> search(int pageNumber, int size, String keyword) {
         return null;
     }
+
+
 }

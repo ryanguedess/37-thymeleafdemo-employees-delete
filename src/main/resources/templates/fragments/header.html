@@ -11,6 +11,15 @@
 
     <title>Header</title>
 
+
+    <style>
+    .currentPage {
+      font-weight: bold;
+      background: -webkit-linear-gradient(white, red, black);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    </style>
 </head>
 <body>
 <header th:fragment="header">
@@ -18,10 +27,17 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="id">
                 <div class="navbar-nav">
-                    <a class="navbar-brand" th:href="@{/clientes/list}">Clientes</a>
-                    <a class="navbar-brand" th:href="@{/funcionarios/list}">Funcionários</a>
-                    <a class="navbar-brand" th:href="@{/fornecedores/list}">Fornecedores</a>
-                    <a class="navbar-brand" th:href="@{/produtos/list}">Produtos</a>
+                    <a class="navbar-brand currentPage" th:href="@{/clientes/list}"
+                       th:style="${currentPage} == 'clientes' ? 'font-weight: bold;color:red' : 'font-weight: normal'">CLIENTES</a>
+
+                    <a class="navbar-brand" th:href="@{/funcionarios/list}"
+                       th:style="${currentPage} == 'funcionarios' ?'font-weight: bold' : 'font-weight: normal;color:red'">FUNCIONÁRIOS</a>
+
+                    <a class="navbar-brand" th:href="@{/fornecedores/list}"
+                       th:style="${currentPage} == 'fornecedores'? 'font-weight: bold' : 'font-weight: normal;color:red'">FORNECEDORES</a>
+
+                    <a class="navbar-brand " th:href="@{/produtos/list}"
+                       th:style="${currentPage} == 'produtos' ? 'font-weight: bold' : 'font-weight: normal; background-color:white;height:100%'">PRODUTOS</a>
                 </div>
             </div>
         </div>

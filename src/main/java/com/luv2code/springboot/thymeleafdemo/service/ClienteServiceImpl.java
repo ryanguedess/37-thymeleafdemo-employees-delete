@@ -3,11 +3,15 @@ package com.luv2code.springboot.thymeleafdemo.service;
 import com.luv2code.springboot.thymeleafdemo.dao.ClienteRepository;
 import com.luv2code.springboot.thymeleafdemo.entity.Cliente;
 import com.luv2code.springboot.thymeleafdemo.entity.Produto;
+import com.luv2code.springboot.thymeleafdemo.paging.Page;
+import com.luv2code.springboot.thymeleafdemo.paging.Paged;
+import com.luv2code.springboot.thymeleafdemo.paging.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteServiceImpl implements Servicer<Cliente> {
@@ -22,6 +26,18 @@ public class ClienteServiceImpl implements Servicer<Cliente> {
     @Override
     public List<Cliente> findAll() {
         return clienteRepository.findAll();
+    }
+
+    public Paged<Cliente> findAll(int pageNumber, int size) {
+
+        List<Cliente> clientes = clienteRepository.findAll();
+        List<Cliente> paged = clientes.stream()
+                                        .skip(pageNumber>1?pageNumber*size:0)
+                                        .limit(size)
+                                        .collect(Collectors.toList());
+        int totalPages = clientes.size()/size;
+
+        return new Paged<>(new Page<>(paged, totalPages), Paging.of(totalPages, pageNumber, size));
     }
 
     @Override
@@ -52,7 +68,14 @@ public class ClienteServiceImpl implements Servicer<Cliente> {
     }
 
     @Override
-    public List<Cliente> search(String theSearchName) {
-        return clienteRepository.search(theSearchName);
+    public Paged<Cliente> search(int pageNumber, int size,String keyword) {
+        List<Cliente> clientes = clienteRepository.search(keyword);
+        List<Cliente> paged = clientes.stream()
+                                        .skip(pageNumber>1?pageNumber*size:0)
+                                        .limit(size)
+                                        .collect(Collectors.toList());
+        int totalPages = clientes.size()/size;
+
+        return new Paged<>(new Page<>(paged, totalPages),Paging.of(totalPages,pageNumber,size));
     }
 }

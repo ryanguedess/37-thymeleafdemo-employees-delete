@@ -12,6 +12,7 @@ function checkCnpj(cnpj)
 				document.getElementById('razaoSocial').value = data.nome;
 				document.getElementById('nomeFantasia').value = data.fantasia;
 				document.getElementById('email').value = data.email;
+				document.getElementById('')
 			}
 		}
 	})
