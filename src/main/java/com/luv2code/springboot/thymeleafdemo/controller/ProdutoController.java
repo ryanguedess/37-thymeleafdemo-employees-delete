@@ -28,10 +28,31 @@ public class ProdutoController {
     @GetMapping("/list")
     public String listProdutos(
             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-            @RequestParam(value = "size", required = false, defaultValue = "6") int size,
+            @RequestParam(value = "size", required = false, defaultValue = "8") int size,
             Model model){
 
         model.addAttribute("produtos",produtoService.findAll(pageNumber,size));
+
+        return "produtos/list-produtos";
+    }
+
+    @GetMapping("orderByNome")
+    public String orderByNome(Model model){
+        model.addAttribute("produtos",produtoService.findAllByOrderByNomeAsc());
+
+        return "produtos/list-produtos";
+    }
+
+    @GetMapping("orderByPrecoAsc")
+    public String orderByPrecoAsc(Model model){
+        model.addAttribute("produtos",produtoService.findAllByOrderByPrecoAsc());
+
+        return "produtos/list-produtos";
+    }
+
+    @GetMapping("orderByPrecoDesc")
+    public String orderByPrecoDesc(Model model){
+        model.addAttribute("produtos",produtoService.findAllByOrderByPrecoDesc());
 
         return "produtos/list-produtos";
     }

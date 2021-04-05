@@ -1,6 +1,8 @@
 package com.luv2code.springboot.thymeleafdemo.service;
 
+import com.luv2code.springboot.thymeleafdemo.FIELD;
 import com.luv2code.springboot.thymeleafdemo.dao.FornecedorRepository;
+import com.luv2code.springboot.thymeleafdemo.entity.Cliente;
 import com.luv2code.springboot.thymeleafdemo.entity.Fornecedor;
 import com.luv2code.springboot.thymeleafdemo.entity.Produto;
 import com.luv2code.springboot.thymeleafdemo.paging.Paged;
@@ -43,17 +45,16 @@ public class FornecedorServiceImpl implements Servicer<Fornecedor> {
     }
 
     @Override
-    public Produto save(Fornecedor fornecedor){ fornecedorRepository.save(fornecedor);
-        return null;
+    public Fornecedor save(Fornecedor fornecedor){ fornecedorRepository.save(fornecedor);
+        return fornecedor;
     }
 
     @Override
     public void deleteById(int id){fornecedorRepository.deleteById(id);}
 
     @Override
-    public Paged<Fornecedor> search(int pageNumber, int size, String keyword) {
+    public Paged<Cliente> search(int pageNumber, int size, String keyword, FIELD field) {
         return null;
     }
-
 
 }

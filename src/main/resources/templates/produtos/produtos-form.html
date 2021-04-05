@@ -8,41 +8,70 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/demo.css}"/>
 
 	<title>Cadastrar produto</title>
 </head>
 
-<body>
+<body style="background-color:#f2f2f2;">
 
 	<div th:insert="fragments/header :: header"></div>
 
-	<div class="container">
-	
+	<div class="formDiv">
 
 		<p class="h4 mb-4">Cadastrar Produto</p>
 
-		<form action="#" th:action="@{/produtos/save}"
+		<div class="form-row" style="margin-left:1%">
+
+		<div class="form-group col-sm">
+		<form action="#" id="formProduto"
+			  			 th:action="@{/produtos/save}"
 						 th:object="${produto}" method="POST"
 			  			 enctype="multipart/form-data">
-		
+		<div class="form-group">
 			<!-- Add hidden form field to handle update -->
 			<input type="hidden" th:field="*{id}" />
-			
-			<input type="text" th:field="*{nome}"
-					class="form-control mb-4 col-4" placeholder="Nome do produto"/>
 
-			<label>Logo: </label>
-			<input type="file" name="image" accept="image/png, image/jpeg" />
-
+			<label for="nome">Nome</label>
+			<input type="text" th:field="*{nome}" id="nome"
+					class="form-control" placeholder="Nome do produto"/>
 			<br>
-			<button type="submit" class="btn btn-info col-2">Salvar</button>
-						
+			<label for="preco">Preço</label>
+			<input type="text" th:field="*{preco}" id="preco"
+				   class="form-control" placeholder="preco">
+			<br>
+			<input type="file" name="image" accept="image/png, image/jpeg" onchange="loadFile(event)"/>
+		</div>
 		</form>
-	
-		<hr>
-		<a th:href="@{/funcionarios/list}">Back to Employees List</a>
+		</div>
+
+		<div class="col-sm" style="margin-left:5%"><img id="output" width="450" height="450"></div>
+
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col">
+				<a th:href="@{/produtos/list}"
+				   class="btn btn-danger btn-lg" style="float: right;width: 30%">Cancelar</a>
+			</div>
+			<div class="col">
+				<button type="submit" form="formProduto" class="btn btn-success btn-lg" style="width: 30%"> Salvar </button>
+			</div>
+		</div>
 		
 	</div>
+
+	<script>
+		var loadFile = function(event){
+		var output = document.getElementById('output');
+		output.src = URL.createObjectURL(event.target.files[0]);
+		output.onload = function(){
+			URL.revokeObjectURL(output.src)
+			}
+		};
+	</script>
 </body>
 
 </html>

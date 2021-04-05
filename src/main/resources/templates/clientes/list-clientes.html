@@ -7,21 +7,13 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <link rel="stylesheet" th:href="@{/css/demo.css}"/>
     <script type="text/javascript" th:src="@{/js/header.js}"></script>
 
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<!--    <style>-->
-<!--    .currentPage {-->
-<!--       font-size: 30px;-->
-<!--      font-weight: bold;-->
-<!--      background: -webkit-linear-gradient(white, red, black);-->
-<!--      -webkit-background-clip: text;-->
-<!--      -webkit-text-fill-color: transparent;-->
-<!--    }-->
-<!--    </style>-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 
     <title>Clientes</title>
 
@@ -30,36 +22,35 @@
 
 <div th:insert="fragments/header :: header(currentPage='clientes')"></div>
 
-<div class="container">
-    <a class="currentPage">TEXTO</a>
-    <br>
-    <h3>Lista de Clientes</h3>
-    <!-- Add a button   -->
-    <br>
+<br>
+<div class="container col-11">
     <a th:href="@{/clientes/showFormForAdd}"
-       class="btn btn-primary btn-sm mb-3" style="float: right;">
+       class="btn btn-primary btn-lg mb-3">
         Adicionar Cliente
     </a>
-
-    <form action="#" th:action="@{/clientes/search}"  th:object="${cliente}" method="GET" id="nameform">
-
-       <div class="row" style="width: 60%;">
-           <input type="hidden" name="pageNumber" th:value="${clientes.paging.pageNumber}" />
-           <input type="hidden" name="pageSize" th:value="${clientes.paging.pageSize}" />
-
-           <div class="col-12">
-               <select name="filter" id="filer" style="height:100%;">
-                   <option value="1">Código</option>
-                   <option value="2">Razão Social</option>
-                   <option value="3">Nome Fantasia</option>
-               </select>
-               <input type="text" name="keyword" style="width:50%;" />
-               <input type="submit" value="Pesquisar" class="add-button" />
-           </div>
-       </div>
+</div>
+    <div class="container col-11">
+    <form action="#" th:action="@{/clientes/search}"  th:object="${cliente}" method="GET" id="formSearch">
+        <div class="form-row">
+            <div class="col-2">
+            <input type="hidden" name="pageNumber" th:value="${clientes.paging.pageNumber}" />
+            <input type="hidden" name="pageSize" th:value="${clientes.paging.pageSize}" />
+            <select class="form-control" name="filter" id="filer">
+                <option value="1">Código</option>
+                <option value="2">Razão Social</option>
+                <option value="3">Nome Fantasia</option>
+            </select>
+            </div>
+            <div class="col-10">
+                <input class ="form-control" type="text" name="keyword"/>
+                <button class="btn" style="border: none;margin-top: -6.5%;margin-left:96%">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
     </form>
-
-
+    </div>
+<div class="container col-11">
     <table>
         <thead>
         <tr>
@@ -83,14 +74,14 @@
 
             <td>
                 <div class="row">
-
                     <div class="col-small">
                         <!-- Add "update" button/link -->
                         <form action="#" th:action="@{/clientes/showFormForUpdate}" method="POST">
 
                             <input type="hidden" name="clienteId" th:value="${tempCliente.id}" />
-                            <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Modificar</button>
-
+                            <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">
+                                <i class="bi bi-pen"> Editar</i></a>
+                            </button>
                         </form>
                     </div>
 
@@ -99,9 +90,9 @@
                         <form action="#" th:action="@{/clientes/delete}" method="POST">
 
                             <input type="hidden" name="clienteId" th:value="${tempCliente.id}" />
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
-                                Deletar
+                            <button type="submit" class="btn btn-danger btn-sm mr-2"
+                                    onclick="if (!(confirm('Tem certeza que deseja deletar esse cliente?'))) return false">
+                                <i class="bi bi-trash2"> Deletar</i></a>
                             </button>
 
                         </form>
@@ -147,9 +138,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 </body>
 </html>

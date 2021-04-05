@@ -45,12 +45,13 @@ public class Cliente {
 
     public Cliente(){}
 
-    public Cliente(int id, String razaoSocial, String nomeFantasia, String cnpj, String email, String rua, String numero, String bairro, String complemento) {
+    public Cliente(int id, String razaoSocial, String nomeFantasia, String cnpj, String email, String cep, String rua, String numero, String bairro, String complemento) {
         this.id = id;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;
         this.email = email;
+        this.cep = cep;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
@@ -62,6 +63,7 @@ public class Cliente {
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;
         this.email = email;
+        this.cep = cep;
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
@@ -106,6 +108,14 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public String getRua() {

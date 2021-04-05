@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+
+    <title>pedidos</title>
+</head>
+<body style="background-color:#f2f2f2;">
+
+<div th:insert="fragments/header :: header(currentPage='carrinho')"></div>
+<br>
+<div class="container col-11">
+
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="detalhe : ${detalhes}">
+            <td>
+                <img th:src="@{${detalhe.produto.imagePath}}" width="60" height="60">
+            </td>
+            <td th:text="${detalhe.produto.nome}" />
+            <td th:text="${#numbers.formatDecimal(detalhe.preco, 0, 'POINT', 2, 'COMMA')}"/>
+            <td th:text="${detalhe.quantidade}" />
+            <td th:text="${#numbers.formatDecimal(detalhe.total, 0, 'POINT', 2, 'COMMA')}" />
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td/>
+            <td/>
+            <td/>
+            <td/>
+            <td><a th:text=" 'R$ ' + ${#numbers.formatDecimal(total, 0, 'POINT', 2, 'COMMA')}" style="font-weight:bold;"></a> </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<br>
+<div class="container col-11 justify-content-end">
+    <div class="row col-3 offset-9">
+    <a th:href="@{/user/saveCart}" class="btn btn-success btn-lg mb-3 btn-block">Salvar</a>
+    </div>
+</div>
+</body>
+</html>

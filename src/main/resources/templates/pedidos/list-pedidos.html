@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>pedidos</title>
+</head>
+<body style="background-color:#f2f2f2;">
+
+<div th:insert="fragments/header :: header(currentPage='pedidos')"></div>
+<br>
+<div class="container col-11">
+    <form action="#" th:action="@{/pedidos/search}" th:object="${pedido}" method="GET" id="formSearch">
+        <div class="form-row">
+            <div class="col-2">
+                <input type="hidden" name="pageNumber">
+                <input type="hidden" name="pageSize">
+                <select class="form-control" name="filter" id="filter">
+                    <option value="1">Código</option>
+                    <option value="2">Total</option>
+                    <option value="3">Data</option>
+                </select>
+            </div>
+            <div class="col-10">
+                <input class="form-control" type="text" name="keyword"/>
+                <button class="btn" style="border: none;margin-top: -6.5%;margin-left:96%">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container col-11">
+    <table>
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Total</th>
+            <th>Data</th>
+            <th>Ação</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempPedido : ${pedidos}">
+
+            <td th:text=" '#' + ${tempPedido.id} +' - '+ ${tempPedido.cliente.razaoSocial}"/>
+            <td>R$ <span th:text="${#numbers.formatDecimal(tempPedido.total, 0, 'POINT', 2, 'COMMA')}">10.00</span></td>
+            <td th:text="${#dates.format(tempPedido.data, 'dd/MM/yyyy')}" />
+            <td><a th:href="@{'/pedidos/detalhe?pedido=' + ${tempPedido.id} + '&titulo=' + ${tempPedido.cliente.razaoSocial} }" class="btn btn-dark btn-sm btn-block">
+                <i class="fa fa-search fa-lg"></i></a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>
+<br>
+<br>
+</body>
+</html>

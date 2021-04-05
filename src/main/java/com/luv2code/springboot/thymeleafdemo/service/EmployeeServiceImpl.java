@@ -3,6 +3,8 @@ package com.luv2code.springboot.thymeleafdemo.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.luv2code.springboot.thymeleafdemo.FIELD;
+import com.luv2code.springboot.thymeleafdemo.entity.Cliente;
 import com.luv2code.springboot.thymeleafdemo.entity.Produto;
 import com.luv2code.springboot.thymeleafdemo.paging.Paged;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +51,9 @@ public class EmployeeServiceImpl implements Servicer<Employee> {
 	}
 
 	@Override
-	public Produto save(Employee theEmployee) {
+	public Employee save(Employee theEmployee) {
 		employeeRepository.save(theEmployee);
-        return null;
+        return theEmployee;
     }
 
 	@Override
@@ -60,10 +62,9 @@ public class EmployeeServiceImpl implements Servicer<Employee> {
 	}
 
 	@Override
-	public Paged<Employee> search(int pageNumber, int size, String keyword) {
+	public Paged<Cliente> search(int pageNumber, int size, String keyword, FIELD field) {
 		return null;
 	}
-
 
 }
 

@@ -1,5 +1,6 @@
 package com.luv2code.springboot.thymeleafdemo.service;
 
+import com.luv2code.springboot.thymeleafdemo.FIELD;
 import com.luv2code.springboot.thymeleafdemo.dao.ProdutoRepository;
 import com.luv2code.springboot.thymeleafdemo.entity.Cliente;
 import com.luv2code.springboot.thymeleafdemo.entity.Produto;
@@ -40,6 +41,29 @@ public class ProdutoServiceImpl implements Servicer<Produto>{
         return new Paged<>(new Page<>(paged,totalPages), Paging.of(totalPages, pageNumber,size));
     }
 
+    public Paged<Produto>  findAllByOrderByNomeAsc(){
+        List<Produto> produtos =  produtoRepository.findAllByOrderByNomeAsc();
+        List<Produto> paged = produtos.stream()
+                                        .limit(8)
+                                        .collect(Collectors.toList());
+        int totalPages = produtos.size()/8;
+        return new Paged<>(new Page<>(paged,totalPages), Paging.of(totalPages, 1, 8));
+    }
+
+    public Paged<Produto> findAllByOrderByPrecoAsc(){
+        List<Produto> produtos = produtoRepository.findAllByOrderByPrecoAsc();
+        List<Produto> paged = produtos.stream().limit(8).collect(Collectors.toList());
+        int totalPages = produtos.size()/8;
+        return new Paged<>(new Page<>(paged, totalPages),Paging.of(totalPages, 1, 8));
+    }
+
+    public Paged<Produto> findAllByOrderByPrecoDesc(){
+        List<Produto> produtos = produtoRepository.findAllByOrderByPrecoDesc();
+        List<Produto> paged = produtos.stream().limit(8).collect(Collectors.toList());
+        int totalPages = produtos.size()/8;
+        return new Paged<>(new Page<>(paged,totalPages), Paging.of(totalPages, 1, 8));
+    }
+
     @Override
     public Produto findById(int Id) {
         Optional<Produto> result = produtoRepository.findById(Id);
@@ -67,8 +91,9 @@ public class ProdutoServiceImpl implements Servicer<Produto>{
     }
 
     @Override
-    public Paged<Produto> search(int pageNumber, int size, String keyword) {
+    public Paged<Cliente> search(int pageNumber, int size, String keyword, FIELD field) {
         return null;
     }
+
 
 }

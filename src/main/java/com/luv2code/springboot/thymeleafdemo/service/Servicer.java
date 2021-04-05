@@ -1,5 +1,7 @@
 package com.luv2code.springboot.thymeleafdemo.service;
 
+import com.luv2code.springboot.thymeleafdemo.FIELD;
+import com.luv2code.springboot.thymeleafdemo.entity.Cliente;
 import com.luv2code.springboot.thymeleafdemo.entity.Produto;
 import com.luv2code.springboot.thymeleafdemo.paging.Paged;
 
@@ -13,10 +15,9 @@ public interface Servicer<T> {
 
     public T findById(int Id);
 
-    public Produto save(T type);
+    public T save(T type);
 
     public void deleteById(int id);
 
-    Paged<T> search(int pageNumber, int size,String keyword);
-
+    Paged<Cliente> search(int pageNumber, int size, String keyword, FIELD field);
 }

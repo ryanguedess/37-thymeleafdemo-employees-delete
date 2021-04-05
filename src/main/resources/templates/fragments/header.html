@@ -9,37 +9,64 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/demo.css}"/>
 
-    <title>Header</title>
-
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
-    .currentPage {
-      font-weight: bold;
-      background: -webkit-linear-gradient(white, red, black);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    </style>
+.navbar-nav{
+ padding-top:0.5%;
+ padding-bottom:0.5%;
+ background-color:Brown
+}
+
+</style>
+    <title>Header</title>
 </head>
 <body>
 <header th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="id">
-                <div class="navbar-nav">
-                    <a class="navbar-brand currentPage" th:href="@{/clientes/list}"
-                       th:style="${currentPage} == 'clientes' ? 'font-weight: bold;color:red' : 'font-weight: normal'">CLIENTES</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:0px;">
+        <div class="navbar-nav"
+             style = "padding: 0.5% 0 0.5% 1.5%;"
+             th:styleappend="${currentPage} == 'clientes' ? 'background-color:Brown' : ''">
+            <a class="navbar-brand currentPage" th:href="@{/clientes/list}"
+               th:style="${currentPage} == 'clientes' ? 'font-weight: bold;' : 'font-weight: normal'">CLIENTES</a>
+        </div>
 
-                    <a class="navbar-brand" th:href="@{/funcionarios/list}"
-                       th:style="${currentPage} == 'funcionarios' ?'font-weight: bold' : 'font-weight: normal;color:red'">FUNCIONÁRIOS</a>
+        <div class="navbar-nav"
+             style = "padding: 0.5% 0 0.5% 1.5%;"
+             th:styleappend="${currentPage} == 'funcionarios' ? 'background-color:Brown' : ''">
+            <a class="navbar-brand" th:href="@{/funcionarios/list}"
+               th:style="${currentPage} == 'funcionarios' ?'font-weight: bold;' : 'font-weight: normal'">FUNCIONÁRIOS</a>
+        </div>
 
-                    <a class="navbar-brand" th:href="@{/fornecedores/list}"
-                       th:style="${currentPage} == 'fornecedores'? 'font-weight: bold' : 'font-weight: normal;color:red'">FORNECEDORES</a>
+        <div class="navbar-nav"
+             style = "padding: 0.5% 0 0.5% 1.5%;"
+             th:styleappend="${currentPage} == 'fornecedores' ? 'background-color:Brown' : ''">
+            <a class="navbar-brand"
+               th:href="@{/fornecedores/list}"
+               th:style="${currentPage} == 'fornecedores'? 'font-weight: bold;' : 'font-weight: normal'">FORNECEDORES</a>
+        </div>
 
-                    <a class="navbar-brand " th:href="@{/produtos/list}"
-                       th:style="${currentPage} == 'produtos' ? 'font-weight: bold' : 'font-weight: normal; background-color:white;height:100%'">PRODUTOS</a>
-                </div>
-            </div>
+        <div class="navbar-nav"
+             style = "padding: 0.5% 0 0.5% 1.5%;"
+             th:styleappend="${currentPage} == 'produtos' ? 'background-color:Brown' : ''">
+            <a class="navbar-brand " th:href="@{/produtos/list}"
+               th:style="${currentPage} == 'produtos' ? 'font-weight: bold;' : 'font-weight: normal'">PRODUTOS</a>
+        </div>
+
+        <div class="navbar-nav"
+             style = "padding: 0.5% 0 0.5% 1.5%;"
+             th:styleappend="${currentPage} == 'pedidos' ? 'background-color:Brown' : ''">
+            <a class="navbar-brand " th:href="@{/pedidos/list}"
+               th:style="${currentPage} == 'pedidos' ? 'font-weight: bold;' : 'font-weight: normal'">PEDIDOS</a>
+        </div>
+
+        <div class="navbar-nav"
+             style = "padding: 0.5% 0 0.5% 1.5%;"
+             th:styleappend="${currentPage} == 'carrinho' ? 'background-color:Brown' : ''">
+            <a class="navbar-brand " th:href="@{/user/getCarrinho}"
+               th:style="${currentPage} == 'carrinho' ? 'font-weight: bold;' : 'font-weight: normal;'">CARRINHO</a>
+
         </div>
     </nav>
 </header>

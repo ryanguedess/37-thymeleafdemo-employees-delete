@@ -1,8 +1,8 @@
 package com.luv2code.springboot.thymeleafdemo.service;
 
+import com.luv2code.springboot.thymeleafdemo.FIELD;
 import com.luv2code.springboot.thymeleafdemo.dao.ClienteRepository;
 import com.luv2code.springboot.thymeleafdemo.entity.Cliente;
-import com.luv2code.springboot.thymeleafdemo.entity.Produto;
 import com.luv2code.springboot.thymeleafdemo.paging.Page;
 import com.luv2code.springboot.thymeleafdemo.paging.Paged;
 import com.luv2code.springboot.thymeleafdemo.paging.Paging;
@@ -50,16 +50,16 @@ public class ClienteServiceImpl implements Servicer<Cliente> {
         if(result.isPresent()){
             cliente = result.get();
         }else{
-            throw new RuntimeException("Fornecedor não encontrado" + id);
+            throw new RuntimeException("Cliente não encontrado" + id);
         }
 
         return cliente;
     }
 
     @Override
-    public Produto save(Cliente cliente) {
+    public Cliente save(Cliente cliente) {
         clienteRepository.save(cliente);
-        return null;
+        return cliente;
     }
 
     @Override
@@ -68,8 +68,16 @@ public class ClienteServiceImpl implements Servicer<Cliente> {
     }
 
     @Override
-    public Paged<Cliente> search(int pageNumber, int size,String keyword) {
-        List<Cliente> clientes = clienteRepository.search(keyword);
+    public Paged<Cliente> search(int pageNumber, int size, String keyword, FIELD field) {
+        List<Cliente> clientes = null;
+        if(field == FIELD.CODIGO){
+           clientes = clienteRepository.findByIdContaining(Integer.parseInt(keyword));
+        }else if(field == FIELD.NOME_FANTASIA){
+            clientes = clienteRepository.findByNomeFantasiaContaining(keyword);
+        }else{
+            clientes = clienteRepository.findByRazaoSocialContaining(keyword);
+        }
+
         List<Cliente> paged = clientes.stream()
                                         .skip(pageNumber>1?pageNumber*size:0)
                                         .limit(size)
